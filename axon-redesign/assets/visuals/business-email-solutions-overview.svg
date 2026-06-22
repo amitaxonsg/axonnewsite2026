@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+  <title id="title">Business email solutions dashboard</title>
+  <desc id="desc">Business email setup showing mailbox, DNS protection, deliverability and support.</desc>
+  <rect width="1200" height="760" rx="34" fill="#f8fbff"/>
+  <rect x="58" y="58" width="1084" height="644" rx="30" fill="#ffffff" stroke="#dbe5f2"/>
+  <text x="96" y="118" fill="#0f172a" font-family="Arial, sans-serif" font-size="30" font-weight="700">Business Email Setup</text>
+  <text x="96" y="152" fill="#64748b" font-family="Arial, sans-serif" font-size="17">Professional mailboxes, domain records and safer delivery for your team.</text>
+  <g transform="translate(96 214)">
+    <rect width="476" height="342" rx="26" fill="#f8fafc" stroke="#dbe5f2"/>
+    <text x="34" y="52" fill="#003087" font-family="Arial, sans-serif" font-size="22" font-weight="700">Inbox and accounts</text>
+    <rect x="34" y="88" width="406" height="54" rx="16" fill="#ffffff" stroke="#e2e8f0"/>
+    <text x="58" y="122" fill="#334155" font-family="Arial, sans-serif" font-size="17">sales@yourcompany.com</text>
+    <rect x="34" y="164" width="406" height="54" rx="16" fill="#ffffff" stroke="#e2e8f0"/>
+    <text x="58" y="198" fill="#334155" font-family="Arial, sans-serif" font-size="17">support@yourcompany.com</text>
+    <rect x="34" y="240" width="406" height="54" rx="16" fill="#ffffff" stroke="#e2e8f0"/>
+    <text x="58" y="274" fill="#334155" font-family="Arial, sans-serif" font-size="17">admin@yourcompany.com</text>
+  </g>
+  <g transform="translate(624 214)">
+    <rect width="480" height="342" rx="26" fill="#eef6ff" stroke="#bfdbfe"/>
+    <text x="34" y="52" fill="#174ea6" font-family="Arial, sans-serif" font-size="22" font-weight="700">Deliverability protection</text>
+    <g font-family="Arial, sans-serif" font-size="17" fill="#334155">
+      <text x="34" y="104">SPF record</text><text x="334" y="104" fill="#16a34a" font-weight="700">OK</text>
+      <text x="34" y="154">DKIM signing</text><text x="334" y="154" fill="#16a34a" font-weight="700">OK</text>
+      <text x="34" y="204">DMARC policy</text><text x="334" y="204" fill="#f59e0b" font-weight="700">Review</text>
+      <text x="34" y="254">Mailbox backup</text><text x="334" y="254" fill="#003087" font-weight="700">Included</text>
+    </g>
+  </g>
+</svg>

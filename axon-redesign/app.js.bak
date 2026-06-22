@@ -1,0 +1,1475 @@
+document.addEventListener('DOMContentLoaded', () => {
+  // Click-to-zoom for software screenshots.
+  const zoomButtons = document.querySelectorAll('.axon-image-zoom img');
+  if (zoomButtons.length) {
+    const zoomModal = document.createElement('div');
+    zoomModal.className = 'axon-image-modal';
+    zoomModal.setAttribute('aria-hidden', 'true');
+    zoomModal.innerHTML = `
+      <button class="axon-image-modal-close" type="button" aria-label="Close image zoom">&times;</button>
+      <img alt="" class="axon-image-modal-img" src="">
+    `;
+    document.body.appendChild(zoomModal);
+
+    const modalImage = zoomModal.querySelector('.axon-image-modal-img');
+    const closeZoom = () => {
+      zoomModal.classList.remove('open');
+      zoomModal.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('axon-modal-open');
+    };
+
+    zoomButtons.forEach((image) => {
+      const trigger = image.closest('.axon-image-zoom');
+      trigger.addEventListener('click', () => {
+        modalImage.src = image.currentSrc || image.src;
+        modalImage.alt = image.alt || 'Software screenshot';
+        zoomModal.classList.add('open');
+        zoomModal.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('axon-modal-open');
+      });
+    });
+
+    zoomModal.addEventListener('click', (event) => {
+      if (event.target === zoomModal || event.target.classList.contains('axon-image-modal-close')) {
+        closeZoom();
+      }
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && zoomModal.classList.contains('open')) {
+        closeZoom();
+      }
+    });
+  }
+  
+  // 1. Mobile Menu & Navigation Dropdowns Interactivity
+  const menuToggle = document.getElementById('menuToggle');
+  const navMenu = document.getElementById('navMenu');
+  
+  function closeMobileMenu() {
+    if (navMenu) {
+      navMenu.classList.remove('open');
+      if (menuToggle) {
+        const spans = menuToggle.querySelectorAll('span');
+        if (spans.length >= 3) {
+          spans[0].style.transform = 'none';
+          spans[1].style.opacity = '1';
+          spans[2].style.transform = 'none';
+        }
+      }
+      // Reset mobile dropdown active states
+      document.querySelectorAll('.nav-item-dropdown').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.dropdown-menu').forEach(m => m.classList.remove('open'));
+    }
+  }
+
+  if (menuToggle && navMenu) {
+    menuToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      navMenu.classList.toggle('open');
+      
+      const spans = menuToggle.querySelectorAll('span');
+      if (navMenu.classList.contains('open')) {
+        spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+        spans[1].style.opacity = '0';
+        spans[2].style.transform = 'rotate(-45deg) translate(6px, -7px)';
+      } else {
+        closeMobileMenu();
+      }
+    });
+
+    // Close menu when clicking normal links (not dropdown toggles)
+    const navLinks = navMenu.querySelectorAll('.nav-link:not(.dropdown-toggle)');
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        closeMobileMenu();
+      });
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+      if (navMenu.classList.contains('open') && !navMenu.contains(e.target) && e.target !== menuToggle) {
+        closeMobileMenu();
+      }
+    });
+  }
+
+  // Toggle submenus on click on mobile
+  const dropdownToggleLinks = document.querySelectorAll('.nav-menu .dropdown-toggle');
+  dropdownToggleLinks.forEach(toggle => {
+    toggle.addEventListener('click', (e) => {
+      if (window.innerWidth <= 768) {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        const parent = toggle.closest('.nav-item-dropdown');
+        const dropdownMenu = parent.querySelector('.dropdown-menu');
+        
+        const isOpen = dropdownMenu.classList.contains('open');
+        
+        // Close all dropdowns
+        dropdownToggleLinks.forEach(otherToggle => {
+          const otherParent = otherToggle.closest('.nav-item-dropdown');
+          const otherMenu = otherParent.querySelector('.dropdown-menu');
+          otherParent.classList.remove('active');
+          otherMenu.classList.remove('open');
+        });
+        
+        if (!isOpen) {
+          parent.classList.add('active');
+          dropdownMenu.classList.add('open');
+        }
+      }
+    });
+  });
+
+  // Contact Modal Setup & Core Functionality
+  const contactModal = document.getElementById('contactModal');
+  const contactModalClose = document.getElementById('contactModalClose');
+  const contactModalOverlay = document.getElementById('contactModalOverlay');
+  const messageTextarea = document.getElementById('message');
+  const nameInput = document.getElementById('name');
+
+  function openContactModal(prefillText) {
+    if (!contactModal) return;
+    if (messageTextarea && prefillText) {
+      messageTextarea.value = prefillText;
+    }
+    contactModal.classList.add('open');
+    if (nameInput) {
+      setTimeout(() => {
+        nameInput.focus();
+      }, 100);
+    }
+  }
+
+  function closeContactModal() {
+    if (!contactModal) return;
+    contactModal.classList.remove('open');
+    const formFeedback = document.getElementById('formFeedback');
+    if (formFeedback) {
+      formFeedback.classList.add('hidden');
+    }
+  }
+
+  function hasNavigableHref(element) {
+    const href = element.getAttribute('href');
+    if (!href) return false;
+
+    const normalizedHref = href.trim().toLowerCase();
+    return normalizedHref !== '#' && !normalizedHref.startsWith('javascript:');
+  }
+
+  // Site search for services and common business problems.
+  const navActions = document.querySelector('.nav-actions');
+  const siteSearchPages = [
+    { title: 'Website Optimization Audit', category: 'Websites & Digital Presence', url: 'website-optimization-audit.html', terms: 'google analytics google anlyatics search console seo sem sitemap tag manager tracking conversion events indexing not found on google crawl metadata' },
+    { title: 'SEO & Local Business Visibility', category: 'Business Growth & Operations', url: 'seo-local-business-visibility.html', terms: 'seo local seo google business profile search console ga4 analytics sitemap service pages location pages reviews testimonials core web vitals website speed indexing not found on google local business visibility singapore philippines enquiry tracking whatsapp clicks phone clicks' },
+    { title: 'Wix Website Support', category: 'Websites & Digital Presence', url: 'wix-website-support.html', terms: 'wix form not sending wix domain wix seo wix mobile layout wix analytics wix redesign wix support' },
+    { title: 'Shopify Store Support', category: 'Websites & Digital Presence', url: 'shopify-store-support.html', terms: 'shopify checkout payment payments shipping products collections store support domain sales analytics ecommerce e-commerce' },
+    { title: 'AI Website & App Publishing', category: 'Hosting, Domains & Infrastructure', url: 'ai-website-app-publishing.html', terms: 'lovable elevelable bolt replit vercel ai builder ai created website ai built website host publish deployment app domain ssl database api email forms chatgpt recommendation non it client' },
+    { title: 'WhatsApp Marketing & Automation', category: 'AI & Business Automation', url: 'whatsapp-marketing-automation.html', terms: 'whatsapp whatapp marketing automation autmaton auto reply campaign crm lead follow up templates business messages' },
+    { title: 'Human-Like Website AI Chatbot', category: 'AI & Business Automation', url: 'website-ai-chatbot.html', terms: 'human like ai chatbot chat bot website assistant customer support auto answer faq lead capture live chat human handoff' },
+    { title: 'AI Writing & Content Assistant', category: 'AI & Business Automation', url: 'ai-writing-content-assistant.html', terms: 'ai writing human like content assistant email proposal website copy product description social post prompt chatgpt' },
+    { title: 'Business Growth & Operations Support', category: 'Business Growth & Operations', url: 'business-growth-operations-support.html', terms: 'google business profile setup local seo singapore philippines seo local visibility facebook instagram tiktok pixel tracking meta ads landing page crm lead management appointment booking automation invoice quotation automation email newsletter setup online payment gateway setup review testimonial collection customer support ticketing staff ai training pdpa privacy ai usage policy analytics search console setup website speed core web vitals' },
+    { title: 'Corporate Websites', category: 'Websites & Digital Presence', url: 'corporate-websites.html', terms: 'company website business website landing page services pages credibility enquiries' },
+    { title: 'Website Revamps & Modernization', category: 'Websites & Digital Presence', url: 'website-revamps-modernization.html', terms: 'redesign revamp modernize old website mobile layout ux ui content refresh' },
+    { title: 'E-Commerce Solutions', category: 'Websites & Digital Presence', url: 'e-commerce-solutions.html', terms: 'online store ecommerce e-commerce cart checkout products payments sales' },
+    { title: 'Customer & Member Portals', category: 'Websites & Digital Presence', url: 'customer-member-portals.html', terms: 'portal login customer member dashboard secure access' },
+    { title: 'Business Applications', category: 'Websites & Digital Presence', url: 'business-applications.html', terms: 'custom app internal system forms workflow dashboard operations' },
+    { title: 'Mobile App Technical Assistance', category: 'Websites & Digital Presence', url: 'mobile-app-technical-assistance.html', terms: 'mobile app android ios technical assistance publish issue app support' },
+    { title: 'Website Maintenance & Support', category: 'Websites & Digital Presence', url: 'website-maintenance-support.html', terms: 'maintenance updates fixes backups content edits support broken website' },
+    { title: 'Google Workspace Solutions', category: 'Cloud & Email Solutions', url: 'google-workspace-solutions.html', terms: 'gmail google workspace email drive calendar business email migration migrate email to google workspace already using google need help new google workspace setup shared drive setup google admin gmail phone setup microsoft 365 to google hosting mail to google' },
+    { title: 'Microsoft 365 Solutions', category: 'Cloud & Email Solutions', url: 'microsoft-365-solutions.html', terms: 'outlook microsoft 365 office teams onedrive exchange business email migration migrate email to 365 migrate email to microsoft 365 already in 365 need help already using microsoft 365 need help new microsoft 365 setup teams setup sharepoint onedrive setup google to 365 hosting mail to 365' },
+    { title: 'Business Email Solutions', category: 'Cloud & Email Solutions', url: 'business-email-solutions.html', terms: 'email smtp forms not sending spf dkim dmarc mail delivery contact form' },
+    { title: 'Cloud Migration Services', category: 'Cloud & Email Solutions', url: 'cloud-migration-services.html', terms: 'migration cloud email files server move provider' },
+    { title: 'Document & Collaboration Platforms', category: 'Cloud & Email Solutions', url: 'document-collaboration-platforms.html', terms: 'documents collaboration drive sharepoint files permissions' },
+    { title: 'Productivity Solutions', category: 'Cloud & Email Solutions', url: 'productivity-solutions.html', terms: 'productivity tools workflow team documents email calendar' },
+    { title: 'Corporate Hosting', category: 'Hosting, Domains & Infrastructure', url: 'corporate-hosting.html', terms: 'hosting cpanel whm website host 1prohost server ssl backups' },
+    { title: 'Cloud Hosting Solutions', category: 'Hosting, Domains & Infrastructure', url: 'cloud-hosting-solutions.html', terms: 'cloud hosting vps server performance scalable website app' },
+    { title: 'Domain Registration & Management', category: 'Hosting, Domains & Infrastructure', url: 'domain-registration-management.html', terms: 'domain dns nameserver ssl redirects www mx records' },
+    { title: 'Business Email Hosting', category: 'Hosting, Domains & Infrastructure', url: 'business-email-hosting.html', terms: 'email hosting mailbox imap smtp webmail delivery' },
+    { title: 'Server Setup & Deployment', category: 'Hosting, Domains & Infrastructure', url: 'server-setup-deployment.html', terms: 'server setup deployment vps linux cloud firewall' },
+    { title: 'Server Management & Monitoring', category: 'Hosting, Domains & Infrastructure', url: 'server-management-monitoring.html', terms: 'server monitoring uptime alerts maintenance patches' },
+    { title: 'Application Deployment', category: 'Hosting, Domains & Infrastructure', url: 'application-deployment.html', terms: 'deploy app application database backend api environment variables' },
+    { title: 'Infrastructure Planning', category: 'Hosting, Domains & Infrastructure', url: 'infrastructure-planning.html', terms: 'infrastructure planning hosting email domain cloud roadmap' },
+    { title: 'AI Consulting & Implementation', category: 'AI & Business Automation', url: 'ai-consulting-implementation.html', terms: 'ai consulting implementation chatgpt claude training workflow business use cases' },
+    { title: 'AI Assistants for Business', category: 'AI & Business Automation', url: 'ai-assistants-for-business.html', terms: 'ai assistant staff assistant customer assistant internal chatbot' },
+    { title: 'Company AI Workspaces', category: 'AI & Business Automation', url: 'company-ai-workspaces.html', terms: 'company ai workspace document search knowledge base team ai' },
+    { title: 'Business Process Automation', category: 'AI & Business Automation', url: 'business-process-automation.html', terms: 'process automation operations forms email sheets crm approvals' },
+    { title: 'Workflow Automation', category: 'AI & Business Automation', url: 'workflow-automation.html', terms: 'workflow automation zapier make n8n forms crm email follow up' },
+    { title: 'Private AI Solutions', category: 'AI & Business Automation', url: 'private-ai-solutions.html', terms: 'private ai local ai ollama open webui privacy documents llm' },
+    { title: 'Website Security', category: 'Security, Recovery & Performance', url: 'website-security.html', terms: 'security hardening malware firewall wordpress hacked protection' },
+    { title: 'Website Recovery', category: 'Security, Recovery & Performance', url: 'website-recovery.html', terms: 'recovery restore broken website hacked down backup repair' },
+    { title: 'Malware Removal', category: 'Security, Recovery & Performance', url: 'malware-removal.html', terms: 'malware removal virus hacked blacklist warning cleanup' },
+    { title: 'Backup & Disaster Recovery', category: 'Security, Recovery & Performance', url: 'backup-disaster-recovery.html', terms: 'backup disaster recovery restore data website server' },
+    { title: 'Performance Optimization', category: 'Security, Recovery & Performance', url: 'performance-optimization.html', terms: 'speed slow website core web vitals images cache performance' },
+    { title: 'Website Monitoring & Health Checks', category: 'Security, Recovery & Performance', url: 'website-monitoring-health-checks.html', terms: 'monitoring health checks uptime alerts broken links website check' },
+    { title: 'Technology Strategy & Planning', category: 'Technology & AI Advisory', url: 'technology-strategy-planning.html', terms: 'technology strategy planning roadmap budget priorities' },
+    { title: 'AI Readiness & Adoption', category: 'Technology & AI Advisory', url: 'ai-readiness-adoption.html', terms: 'ai readiness adoption training staff policy' },
+    { title: 'Digital Transformation', category: 'Technology & AI Advisory', url: 'digital-transformation.html', terms: 'digital transformation modernization business systems' },
+    { title: 'Technology Assessments', category: 'Technology & AI Advisory', url: 'technology-assessments.html', terms: 'technology assessment audit review risk tools' },
+    { title: 'Executive Advisory', category: 'Technology & AI Advisory', url: 'executive-advisory.html', terms: 'executive advisory leadership decision technology ai' },
+    { title: 'AI Tool & Platform Selection', category: 'Technology & AI Advisory', url: 'ai-tool-platform-selection.html', terms: 'ai tool selection chatgpt claude platform compare cost' },
+    { title: 'Use Cases', category: 'Business Problems', url: 'use-cases.html', terms: 'business problems use cases sme startup corporate issue solutions' },
+    { title: 'Contact Axon', category: 'Contact', url: 'contact.html', terms: 'contact address whatsapp chat form talk to axon amit help enquiry' }
+  ];
+
+  function normalizeSearchText(value) {
+    return value.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+  }
+
+  function getSiteSearchResults(query) {
+    const normalizedQuery = normalizeSearchText(query);
+    if (!normalizedQuery) {
+      return siteSearchPages.slice(0, 8);
+    }
+
+    const tokens = normalizedQuery.split(/\s+/).filter(Boolean);
+    return siteSearchPages
+      .map((page) => {
+        const title = normalizeSearchText(page.title);
+        const category = normalizeSearchText(page.category);
+        const url = normalizeSearchText(page.url);
+        const terms = normalizeSearchText(page.terms);
+        const haystack = `${title} ${category} ${url} ${terms}`;
+        const tokenScore = tokens.reduce((total, token) => {
+          let tokenScore = 0;
+          if (title.includes(token)) tokenScore += 8;
+          if (category.includes(token)) tokenScore += 4;
+          if (terms.includes(token)) tokenScore += 5;
+          if (url.includes(token)) tokenScore += 3;
+          if (haystack.includes(token)) tokenScore += 1;
+          return total + tokenScore;
+        }, 0);
+        const matchedTokenCount = tokens.filter((token) => haystack.includes(token)).length;
+        const allTokensMatch = matchedTokenCount === tokens.length;
+        let phraseScore = 0;
+
+        if (title.includes(normalizedQuery)) phraseScore += 30;
+        if (terms.includes(normalizedQuery)) phraseScore += 24;
+        if (url.includes(normalizedQuery)) phraseScore += 12;
+        if (category.includes(normalizedQuery)) phraseScore += 8;
+        if (allTokensMatch) phraseScore += 12;
+
+        const score = tokenScore + phraseScore + (matchedTokenCount * 2);
+
+        return { ...page, score };
+      })
+      .filter((page) => page.score > 0)
+      .sort((a, b) => b.score - a.score || a.title.localeCompare(b.title))
+      .slice(0, 9);
+  }
+
+  function setupSiteSearch() {
+    if (!navActions || document.getElementById('siteSearchPanel')) return;
+
+    const searchToggle = document.createElement('button');
+    searchToggle.className = 'site-search-toggle';
+    searchToggle.type = 'button';
+    searchToggle.id = 'siteSearchToggle';
+    searchToggle.setAttribute('aria-label', 'Search site');
+    searchToggle.setAttribute('title', 'Search');
+    searchToggle.innerHTML = `
+      <svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.4" viewBox="0 0 24 24">
+        <circle cx="11" cy="11" r="7"></circle>
+        <path d="m20 20-3.5-3.5"></path>
+      </svg>
+    `;
+
+    const menuButton = document.getElementById('menuToggle');
+    navActions.insertBefore(searchToggle, menuButton || navActions.firstChild);
+
+    const searchPanel = document.createElement('div');
+    searchPanel.className = 'site-search-panel';
+    searchPanel.id = 'siteSearchPanel';
+    searchPanel.setAttribute('aria-hidden', 'true');
+    searchPanel.innerHTML = `
+      <div class="site-search-dialog" role="dialog" aria-modal="true" aria-label="Search site">
+        <div class="site-search-head">
+          <svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.4" viewBox="0 0 24 24">
+            <circle cx="11" cy="11" r="7"></circle>
+            <path d="m20 20-3.5-3.5"></path>
+          </svg>
+          <input class="site-search-input" id="siteSearchInput" type="search" placeholder="Search business problem or service" autocomplete="off">
+          <button class="site-search-close" type="button" aria-label="Close search">&times;</button>
+        </div>
+        <div class="site-search-results" id="siteSearchResults"></div>
+      </div>
+    `;
+    document.body.appendChild(searchPanel);
+
+    const searchInput = document.getElementById('siteSearchInput');
+    const searchResults = document.getElementById('siteSearchResults');
+    const searchClose = searchPanel.querySelector('.site-search-close');
+
+    function renderSiteSearchResults() {
+      const results = getSiteSearchResults(searchInput.value);
+      searchResults.innerHTML = '';
+
+      if (!results.length) {
+        const empty = document.createElement('div');
+        empty.className = 'site-search-empty';
+        empty.textContent = 'No matching page found. Try website, email, WhatsApp, AI, hosting or SEO.';
+        searchResults.appendChild(empty);
+        return;
+      }
+
+      results.forEach((page) => {
+        const result = document.createElement('a');
+        result.className = 'site-search-result';
+        result.href = page.url;
+
+        const title = document.createElement('strong');
+        title.textContent = page.title;
+        const category = document.createElement('span');
+        category.textContent = page.category;
+        const terms = document.createElement('small');
+        terms.textContent = page.url.replace('.html', '').replace(/-/g, ' ');
+
+        result.append(title, category, terms);
+        result.addEventListener('click', () => {
+          closeMobileMenu();
+        });
+        searchResults.appendChild(result);
+      });
+    }
+
+    function openSiteSearch() {
+      closeMobileMenu();
+      searchPanel.classList.add('open');
+      searchPanel.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('site-search-open');
+      renderSiteSearchResults();
+      setTimeout(() => searchInput.focus(), 50);
+    }
+
+    function closeSiteSearch() {
+      searchPanel.classList.remove('open');
+      searchPanel.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('site-search-open');
+    }
+
+    searchToggle.addEventListener('click', openSiteSearch);
+    searchClose.addEventListener('click', closeSiteSearch);
+    searchInput.addEventListener('input', renderSiteSearchResults);
+    searchPanel.addEventListener('click', (event) => {
+      if (event.target === searchPanel) {
+        closeSiteSearch();
+      }
+    });
+
+    document.addEventListener('keydown', (event) => {
+      const activeElement = document.activeElement;
+      const isTyping = activeElement && (
+        activeElement.tagName === 'INPUT' ||
+        activeElement.tagName === 'TEXTAREA' ||
+        activeElement.tagName === 'SELECT' ||
+        activeElement.isContentEditable
+      );
+
+      if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'k') {
+        event.preventDefault();
+        openSiteSearch();
+      } else if (event.key === '/' && !isTyping) {
+        event.preventDefault();
+        openSiteSearch();
+      } else if (event.key === 'Escape' && searchPanel.classList.contains('open')) {
+        closeSiteSearch();
+      }
+    });
+  }
+
+  setupSiteSearch();
+
+  if (contactModalClose) {
+    contactModalClose.addEventListener('click', closeContactModal);
+  }
+  if (contactModalOverlay) {
+    contactModalOverlay.addEventListener('click', closeContactModal);
+  }
+
+  // Handle Product and Use Case dropdown item clicks to open prefilled inquiries
+  const serviceDropdownItems = document.querySelectorAll('.dropdown-menu .dropdown-item');
+  serviceDropdownItems.forEach(item => {
+    item.addEventListener('click', (e) => {
+      const href = item.getAttribute('href');
+      // If it is an external link (like cPanel hosting), let it navigate naturally
+      if (href && href !== 'javascript:void(0)') {
+        closeMobileMenu();
+        return;
+      }
+      
+      e.preventDefault();
+      const targetTab = item.getAttribute('data-tab');
+      const targetUseCase = item.getAttribute('data-usecase');
+      let prefillText = '';
+
+      if (targetTab === 'webdev') {
+        prefillText = `Hi Axon team,\n\nI am interested in your Websites, Portals & Web Application development services.\n\nPlease let me know how you can help.`;
+      } else if (targetTab === 'ai') {
+        prefillText = `Hi Axon team,\n\nI would like to explore AI & Automation solutions (ChatGPT integration, local LLMs, automated workflows) for my business.`;
+      } else if (targetTab === 'support') {
+        prefillText = `Hi Axon team,\n\nI need assistance with Website Security, Recovery, Malware Cleanup, or Speed Optimization.`;
+      } else if (targetUseCase === 'corporate') {
+        prefillText = `Hi Axon team,\n\nI would like to discuss technology advisory and digital transformation options for my corporate business.`;
+      } else if (targetUseCase === 'startups') {
+        prefillText = `Hi Axon team,\n\nI am looking for cost-effective website revamp and AI integration solutions for my SME/startup.`;
+      } else if (targetUseCase === 'ai-enablement') {
+        prefillText = `Hi Axon team,\n\nI am interested in AI training, coaching, or private knowledge base deployment for my team.`;
+      }
+
+      if (prefillText) {
+        openContactModal(prefillText);
+      }
+      closeMobileMenu();
+    });
+  });
+
+  // Locations dropdown item close helper & About Axon page link actions
+  const locationDropdownItems = document.querySelectorAll('.dropdown-menu .dropdown-item-simple');
+  locationDropdownItems.forEach(item => {
+    item.addEventListener('click', (e) => {
+      const href = item.getAttribute('href');
+      // If it is an external link or has action classes, let it function normally
+      if ((href && href !== 'javascript:void(0)') || item.classList.contains('btn-consultation') || item.classList.contains('btn-contact-support')) {
+        closeMobileMenu();
+        return;
+      }
+      
+      e.preventDefault();
+      const sectionName = item.textContent.trim();
+      openContactModal(`Hi Axon team,\n\nI would like to learn more about the About Axon section: "${sectionName}".`);
+      closeMobileMenu();
+    });
+  });
+
+  // Services mega-menu link clicks to open modal pre-filled
+  const megaMenuLinks = document.querySelectorAll('.mega-menu-link');
+  megaMenuLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      if (hasNavigableHref(link)) {
+        closeMobileMenu();
+        return;
+      }
+
+      e.preventDefault();
+      const serviceName = link.textContent.trim();
+      openContactModal(`Hi Axon team,\n\nI am interested in learning more about your services for:\n"${serviceName}"\n\nPlease let me know how we can proceed.`);
+      closeMobileMenu();
+    });
+  });
+
+  // Bind click listeners to all consultation, pricing, support, clients, contact and blog buttons
+  const consultationButtons = document.querySelectorAll('.btn-consultation');
+  consultationButtons.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      openContactModal(`Hi Axon team,\n\nI would like to schedule a free technology & AI consultation for my business.\n\nPlease let me know your availability.`);
+      closeMobileMenu();
+    });
+  });
+
+  const pricingButtons = document.querySelectorAll('.btn-pricing');
+  pricingButtons.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      openContactModal(`Hi Axon team,\n\nI am interested in learning more about your pricing plans and subscription options.\n\nPlease share your detailed pricing guide.`);
+      closeMobileMenu();
+    });
+  });
+
+  const supportButtons = document.querySelectorAll('.btn-contact-support');
+  supportButtons.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      openContactModal(`Hi Axon team,\n\nI need technical support with my website, hosting, or current setup.\n\nHere are details of my request:`);
+      closeMobileMenu();
+    });
+  });
+
+  const blogButtons = document.querySelectorAll('.btn-blog');
+  blogButtons.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      openContactModal(`Hi Axon team,\n\nI would like to subscribe to the Axon Blog and receive regular updates on technology, AI strategies, and digital transformation.`);
+      closeMobileMenu();
+    });
+  });
+
+  const clientsButtons = document.querySelectorAll('.btn-clients');
+  clientsButtons.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      if (hasNavigableHref(btn)) {
+        closeMobileMenu();
+        return;
+      }
+
+      e.preventDefault();
+      openContactModal(`Hi Axon team,\n\nI would like to know more about your Clients & Success Stories, past experience, and projects.`);
+      closeMobileMenu();
+    });
+  });
+
+  const contactButtons = document.querySelectorAll('.btn-contact');
+  contactButtons.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      openContactModal(`Hi Axon team,\n\nI would like to get in touch with you to discuss our business needs.`);
+      closeMobileMenu();
+    });
+  });
+
+
+  // 3. Contact Form Submission Logic (Interactive Demo)
+  const contactForm = document.getElementById('contactForm');
+  const formFeedback = document.getElementById('formFeedback');
+
+  if (contactForm && formFeedback) {
+    contactForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      const submitBtn = contactForm.querySelector('button[type="submit"]');
+      const originalBtnText = submitBtn.textContent;
+      
+      // Put button in submitting state
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Submitting Request...';
+      formFeedback.classList.add('hidden');
+      formFeedback.className = 'form-feedback';
+
+      // Gather input data
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const website = document.getElementById('website').value.trim();
+      const message = document.getElementById('message').value.trim();
+
+      // Simulate API request (1 second delay)
+      setTimeout(() => {
+        if (!name || !email || !message) {
+          // Failure State
+          submitBtn.disabled = false;
+          submitBtn.textContent = originalBtnText;
+          formFeedback.textContent = 'Please fill out all required fields.';
+          formFeedback.classList.add('error');
+          formFeedback.classList.remove('hidden');
+        } else {
+          // Success State
+          submitBtn.disabled = false;
+          submitBtn.textContent = originalBtnText;
+          
+          formFeedback.innerHTML = `<strong>Thank you, ${name}!</strong> Your redesign mockup request has been received. Amit will contact you at <strong>${email}</strong> within 24 hours.`;
+          formFeedback.classList.add('success');
+          formFeedback.classList.remove('hidden');
+          
+          // Clear form
+          contactForm.reset();
+
+          // Auto close contact modal after 3.5 seconds
+          setTimeout(() => {
+            const modal = document.getElementById('contactModal');
+            if (modal) {
+              modal.classList.remove('open');
+            }
+            formFeedback.classList.add('hidden');
+          }, 3500);
+        }
+      }, 1000);
+    });
+  }
+
+  // Contact Page Form Submission Logic
+  const contactPageForm = document.getElementById('contactPageForm');
+  const pageFormFeedback = document.getElementById('pageFormFeedback');
+
+  if (contactPageForm && pageFormFeedback) {
+    contactPageForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const submitBtn = contactPageForm.querySelector('button[type="submit"]');
+      const originalBtnText = submitBtn.textContent;
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Preparing Email...';
+      pageFormFeedback.classList.add('hidden');
+      pageFormFeedback.className = 'form-feedback';
+
+      const name = document.getElementById('c_name').value.trim();
+      const email = document.getElementById('c_email').value.trim();
+      const website = document.getElementById('c_website').value.trim();
+      const message = document.getElementById('c_message').value.trim();
+
+      if (!name || !email || !message) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalBtnText;
+        pageFormFeedback.textContent = 'Please fill out all required fields.';
+        pageFormFeedback.classList.add('error');
+        pageFormFeedback.classList.remove('hidden');
+        return;
+      }
+
+      const subject = `Axon contact request from ${name}`;
+      const body = [
+        `Name: ${name}`,
+        `Email: ${email}`,
+        website ? `Website / Platform: ${website}` : 'Website / Platform: Not provided',
+        '',
+        message
+      ].join('\n');
+      const mailtoUrl = `mailto:amit@axon.com.sg?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+      submitBtn.disabled = false;
+      submitBtn.textContent = originalBtnText;
+      pageFormFeedback.innerHTML = `<strong>Email prepared.</strong> Your email app should open with the request ready to send to Amit.`;
+      pageFormFeedback.classList.add('success');
+      pageFormFeedback.classList.remove('hidden');
+      window.location.href = mailtoUrl;
+    });
+  }
+
+  // Contact page local chat helper.
+  const axonAgentForm = document.getElementById('axonAgentForm');
+  const axonAgentInput = document.getElementById('axonAgentInput');
+  const axonAgentMessages = document.getElementById('axonAgentMessages');
+  const axonAgentSuggestionButtons = document.querySelectorAll('[data-agent-question]');
+
+  function getAxonAgentReply(question) {
+    const text = question.toLowerCase();
+
+    if (text.includes('google') || text.includes('seo') || text.includes('found')) {
+      return 'Start with indexing basics: page titles, sitemap, robots.txt, Search Console, analytics and whether Google can crawl the page. Send the website URL in the form and Axon can check it.';
+    }
+    if (text.includes('shopify') || text.includes('checkout') || text.includes('product')) {
+      return 'For Shopify, send the store URL, the affected product or checkout step, and a screenshot if available. Axon can check theme, domain, checkout, analytics and app issues.';
+    }
+    if (text.includes('wix') || text.includes('form') || text.includes('email')) {
+      return 'For form or email issues, include the website URL, where the form should send, and whether email uses Google Workspace, Microsoft 365 or hosting mail. Axon can check routing and SMTP.';
+    }
+    if (text.includes('ai') || text.includes('publish') || text.includes('app')) {
+      return 'For AI-built sites or apps, send the project link, code/export if available, and what is blocking launch. Axon can review hosting, domain, backend, database and API setup.';
+    }
+    if (text.includes('hosting') || text.includes('domain') || text.includes('ssl')) {
+      return 'For hosting, domain or SSL help, send the domain name, hosting provider and current error message. Axon can check DNS, SSL, redirects and server setup.';
+    }
+    if (text.includes('hacked') || text.includes('malware') || text.includes('security')) {
+      return 'For security issues, avoid editing the site until backups and access are checked. Send the website URL, hosting login path and any warning message so Axon can advise next steps.';
+    }
+
+    return 'Please share the website or platform, what you expected to happen, and what is happening now. The fastest path is to send those details using the form or WhatsApp.';
+  }
+
+  function appendAxonAgentMessage(role, text) {
+    if (!axonAgentMessages) return;
+    const message = document.createElement('div');
+    message.className = `axon-agent-message ${role}`;
+    const speaker = document.createElement('strong');
+    speaker.textContent = role === 'user' ? 'You' : 'Axon Agent';
+    const body = document.createElement('p');
+    body.textContent = text;
+    message.append(speaker, body);
+    axonAgentMessages.appendChild(message);
+    axonAgentMessages.scrollTop = axonAgentMessages.scrollHeight;
+  }
+
+  function askAxonAgent(question) {
+    const cleanedQuestion = question.trim();
+    if (!cleanedQuestion) return;
+    appendAxonAgentMessage('user', cleanedQuestion);
+    appendAxonAgentMessage('agent', getAxonAgentReply(cleanedQuestion));
+  }
+
+  if (axonAgentForm && axonAgentInput && axonAgentMessages) {
+    axonAgentForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      askAxonAgent(axonAgentInput.value);
+      axonAgentInput.value = '';
+    });
+
+    axonAgentSuggestionButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        askAxonAgent(button.getAttribute('data-agent-question') || button.textContent);
+      });
+    });
+  }
+
+  // 4. Canvas Particle Animation Engine (Futuristic Holographic Circuit Grid & Interactive HUD)
+  const canvas = document.getElementById('particleCanvas');
+  if (canvas) {
+    const ctx = canvas.getContext('2d');
+    let width, height;
+    let mouseX, mouseY;
+    
+    // Shuffled array of sampled coordinates from logo.png
+    let logoPoints = [];
+    
+    // Load and sample the logo image for the logo morph target
+    const logoImg = new Image();
+    logoImg.src = 'logo.png';
+    logoImg.onload = () => {
+      const sampleCanvas = document.createElement('canvas');
+      const sampleCtx = sampleCanvas.getContext('2d');
+      
+      const sWidth = 160;
+      const sHeight = Math.round((logoImg.height / logoImg.width) * sWidth);
+      sampleCanvas.width = sWidth;
+      sampleCanvas.height = sHeight;
+      
+      sampleCtx.drawImage(logoImg, 0, 0, sWidth, sHeight);
+      try {
+        const imgData = sampleCtx.getImageData(0, 0, sWidth, sHeight).data;
+        const tempPoints = [];
+        
+        for (let y = 0; y < sHeight; y += 4) {
+          for (let x = 0; x < sWidth; x += 4) {
+            const idx = (y * sWidth + x) * 4;
+            const alpha = imgData[idx + 3];
+            if (alpha > 120) {
+              tempPoints.push({
+                x: (x - sWidth / 2) / sWidth,
+                y: (y - sHeight / 2) / sWidth // preserve aspect ratio scale
+              });
+            }
+          }
+        }
+        logoPoints = tempPoints.sort(() => Math.random() - 0.5);
+      } catch (err) {
+        console.error('Error sampling logo.png:', err);
+      }
+    };
+
+    const gridSize = 65;
+    function resize() {
+      const rect = canvas.getBoundingClientRect();
+      width = canvas.width = rect.width;
+      height = canvas.height = rect.height;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    // Setup active trace paths on circuit board
+    const traceCount = 14;
+    const activeTraces = [];
+    
+    class CircuitTrace {
+      constructor() {
+        this.reset();
+      }
+      
+      reset() {
+        const cols = Math.ceil(width / gridSize);
+        const rows = Math.ceil(height / gridSize);
+        this.col = Math.floor(Math.random() * (cols - 2)) + 1;
+        this.row = Math.floor(Math.random() * (rows - 2)) + 1;
+        this.nodes = [{ col: this.col, row: this.row }];
+        
+        let dirX = Math.random() < 0.5 ? (Math.random() < 0.5 ? 1 : -1) : 0;
+        let dirY = dirX === 0 ? (Math.random() < 0.5 ? 1 : -1) : 0;
+        
+        const length = Math.floor(Math.random() * 5) + 3;
+        for (let i = 0; i < length; i++) {
+          if (i > 0 && Math.random() < 0.4) {
+            const temp = dirX;
+            dirX = dirY;
+            dirY = -temp;
+          }
+          this.col += dirX;
+          this.row += dirY;
+          if (this.col < 0 || this.col >= cols || this.row < 0 || this.row >= rows) break;
+          this.nodes.push({ col: this.col, row: this.row });
+        }
+        
+        this.opacity = 0;
+        this.maxOpacity = Math.random() * 0.25 + 0.08;
+        this.state = 'FADE_IN';
+        this.life = Math.random() * 300 + 150;
+      }
+      
+      update() {
+        if (this.state === 'FADE_IN') {
+          this.opacity += 0.005;
+          if (this.opacity >= this.maxOpacity) {
+            this.opacity = this.maxOpacity;
+            this.state = 'ACTIVE';
+          }
+        } else if (this.state === 'ACTIVE') {
+          this.life--;
+          if (this.life <= 0) this.state = 'FADE_OUT';
+        } else if (this.state === 'FADE_OUT') {
+          this.opacity -= 0.005;
+          if (this.opacity <= 0) this.reset();
+        }
+      }
+      
+      draw() {
+        if (this.nodes.length < 2) return;
+        ctx.strokeStyle = `rgba(0, 48, 135, ${this.opacity})`;
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(this.nodes[0].col * gridSize, this.nodes[0].row * gridSize);
+        for (let i = 1; i < this.nodes.length; i++) {
+          ctx.lineTo(this.nodes[i].col * gridSize, this.nodes[i].row * gridSize);
+        }
+        ctx.stroke();
+      }
+    }
+
+    for (let i = 0; i < traceCount; i++) {
+      activeTraces.push(new CircuitTrace());
+    }
+
+    // Nodes (particles) that travel along the board and morph into blueprint shapes
+    const particleCount = 120;
+    const particles = [];
+    const colors = [
+      { h: 220, s: 90, l: 60 }, // Royal Blue
+      { h: 260, s: 90, l: 65 }, // Violet/Indigo
+      { h: 300, s: 90, l: 60 }, // Magenta/Purple
+      { h: 0,   s: 90, l: 60 }, // Red
+      { h: 25,  s: 95, l: 60 }, // Orange
+      { h: 45,  s: 95, l: 55 }  // Yellow
+    ];
+
+    class Particle {
+      constructor(id) {
+        this.id = id;
+        this.reset(true);
+      }
+
+      reset(init = false) {
+        this.x = Math.random() * width;
+        this.y = Math.random() * height;
+        this.state = 'FLOAT'; // 'FLOAT' or 'MORPH'
+        this.currentShape = 'float';
+        
+        // Circuit traveling variables
+        this.trace = activeTraces[this.id % activeTraces.length];
+        this.nodeIndex = 0;
+        this.speed = Math.random() * 1.5 + 1.0;
+        
+        this.size = Math.random() * 2.5 + 1.0;
+        this.color = colors[this.id % colors.length];
+        
+        this.trail = [];
+        this.maxTrail = 6;
+        
+        this.alpha = 0;
+        this.maxAlpha = Math.random() * 0.4 + 0.15;
+        this.fadeSpeed = Math.random() * 0.01 + 0.005;
+      }
+
+      morphTo(shapeName) {
+        this.currentShape = shapeName;
+        if (shapeName === 'float') {
+          this.state = 'FLOAT';
+          // Re-attach to nearest trace
+          this.trace = activeTraces[Math.floor(Math.random() * activeTraces.length)];
+          this.nodeIndex = 0;
+        } else {
+          this.state = 'MORPH';
+        }
+      }
+
+      update(time) {
+        if (this.alpha < this.maxAlpha) {
+          this.alpha += this.fadeSpeed;
+        }
+
+        // Maintain movement trails
+        this.trail.push({ x: this.x, y: this.y });
+        if (this.trail.length > this.maxTrail) {
+          this.trail.shift();
+        }
+
+        if (this.state === 'FLOAT') {
+          // Flow along circuit traces
+          if (this.trace && this.trace.nodes.length >= 2) {
+            const nextNode = this.trace.nodes[this.nodeIndex + 1];
+            if (!nextNode) {
+              // Reached end of path, bind to another active path
+              this.trace = activeTraces[Math.floor(Math.random() * activeTraces.length)];
+              this.nodeIndex = 0;
+            } else {
+              const targetX = nextNode.col * gridSize;
+              const targetY = nextNode.row * gridSize;
+              
+              const dx = targetX - this.x;
+              const dy = targetY - this.y;
+              const dist = Math.sqrt(dx * dx + dy * dy);
+              
+              if (dist <= this.speed) {
+                this.x = targetX;
+                this.y = targetY;
+                this.nodeIndex++;
+              } else {
+                this.x += (dx / dist) * this.speed;
+                this.y += (dy / dist) * this.speed;
+              }
+            }
+          } else {
+            // Fallback: simple floating
+            this.x += this.speed;
+            if (this.x > width) this.x = 0;
+          }
+
+          // Mouse push/repel effect
+          if (mouseX !== undefined && mouseY !== undefined) {
+            const dx = this.x - mouseX;
+            const dy = this.y - mouseY;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < 120) {
+              const force = (120 - dist) / 120;
+              this.x += (dx / dist) * force * 5;
+              this.y += (dy / dist) * force * 5;
+            }
+          }
+        } 
+        else if (this.state === 'MORPH') {
+          let shapeCoord = { x: 0, y: 0 };
+          const minDim = Math.min(width, height);
+          
+          if (this.currentShape === 'circle') {
+            const theta = (this.id / particleCount) * Math.PI * 2 + (time * 0.0003);
+            const radius = minDim * 0.22;
+            shapeCoord.x = width / 2 + Math.cos(theta) * radius;
+            shapeCoord.y = height / 2 + Math.sin(theta) * radius;
+          } 
+          else if (this.currentShape === 'wave') {
+            const theta = (this.id / particleCount) * Math.PI * 2 + (time * 0.0004);
+            const scale = minDim * 0.28;
+            const denom = 1 + Math.sin(theta) * Math.sin(theta);
+            shapeCoord.x = width / 2 + (scale * Math.cos(theta)) / denom;
+            shapeCoord.y = height / 2 + (scale * Math.sin(theta) * Math.cos(theta)) / denom;
+          } 
+          else if (this.currentShape === 'grid') {
+            const cols = Math.ceil(Math.sqrt(particleCount));
+            const col = this.id % cols;
+            const row = Math.floor(this.id / cols);
+            const gridSpacingX = minDim * 0.055;
+            const gridSpacingY = minDim * 0.045;
+            const totalWidth = cols * gridSpacingX;
+            const totalHeight = Math.ceil(particleCount / cols) * gridSpacingY;
+            const waveOffset = Math.sin((time * 0.003) + col) * 8;
+            
+            shapeCoord.x = (width / 2 - totalWidth / 2) + col * gridSpacingX;
+            shapeCoord.y = (height / 2 - totalHeight / 2) + row * gridSpacingY + waveOffset;
+          } 
+          else if (this.currentShape === 'cross') {
+            const segment = Math.floor(this.id / (particleCount / 4));
+            const subIdx = this.id % Math.floor(particleCount / 4);
+            const subTotal = Math.floor(particleCount / 4);
+            const t = (subIdx / subTotal - 0.5) * (minDim * 0.4);
+            
+            if (segment === 0) {
+              shapeCoord.x = width / 2 + t;
+              shapeCoord.y = height / 2;
+            } else if (segment === 1) {
+              shapeCoord.x = width / 2;
+              shapeCoord.y = height / 2 + t;
+            } else {
+              const theta = (this.id / particleCount) * Math.PI * 2 + (time * 0.0005);
+              shapeCoord.x = width / 2 + Math.cos(theta) * (minDim * 0.28);
+              shapeCoord.y = height / 2 + Math.sin(theta) * (minDim * 0.28);
+            }
+          } 
+          else if (this.currentShape === 'logo' && logoPoints.length > 0) {
+            const pIdx = this.id % logoPoints.length;
+            const logoScale = minDim * 2.2;
+            shapeCoord.x = width / 2 + logoPoints[pIdx].x * logoScale;
+            shapeCoord.y = height / 2 + logoPoints[pIdx].y * logoScale;
+          }
+          else {
+            shapeCoord.x = width / 2;
+            shapeCoord.y = height / 2;
+          }
+
+          // Smooth interpolation
+          this.x += (shapeCoord.x - this.x) * 0.06;
+          this.y += (shapeCoord.y - this.y) * 0.06;
+        }
+      }
+
+      draw() {
+        // Draw path trail
+        for (let i = 0; i < this.trail.length; i++) {
+          const ratio = i / this.trail.length;
+          const factor = this.state === 'FLOAT' ? (this.trace ? this.trace.opacity : 0.1) : 0.3;
+          ctx.fillStyle = `hsla(${this.color.h}, ${this.color.s}%, ${this.color.l}%, ${ratio * this.alpha * factor * 2.5})`;
+          ctx.beginPath();
+          ctx.arc(this.trail[i].x, this.trail[i].y, this.size * ratio, 0, Math.PI * 2);
+          ctx.fill();
+        }
+
+        // Draw node head
+        const factor = this.state === 'FLOAT' ? (this.trace ? this.trace.opacity : 0.1) : 0.4;
+        ctx.fillStyle = `hsla(${this.color.h}, ${this.color.s}%, ${this.color.l}%, ${this.alpha * factor * 3.5})`;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size + 0.6, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    // Spawn nodes
+    for (let i = 0; i < particleCount; i++) {
+      particles.push(new Particle(i));
+    }
+
+    // Trigger shape changes
+    let morphTimeout = null;
+    function triggerMorph(shapeName) {
+      if (morphTimeout) clearTimeout(morphTimeout);
+      particles.forEach(p => p.morphTo(shapeName));
+      if (shapeName !== 'float' && shapeName !== 'logo') {
+        morphTimeout = setTimeout(() => {
+          particles.forEach(p => p.morphTo('float'));
+        }, 2500);
+      }
+    }
+
+    // Setup tabs listeners
+    const tabs = document.querySelectorAll('.tab-btn');
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const targetTab = tab.getAttribute('data-tab');
+        if (targetTab === 'webdev') triggerMorph('circle');
+        else if (targetTab === 'ai') triggerMorph('wave');
+        else if (targetTab === 'hosting') triggerMorph('grid');
+        else if (targetTab === 'support') triggerMorph('cross');
+      });
+    });
+
+    // Dropdown listeners
+    const dropdownItems = document.querySelectorAll('.dropdown-menu .dropdown-item');
+    dropdownItems.forEach(item => {
+      item.addEventListener('click', () => {
+        const targetTab = item.getAttribute('data-tab');
+        if (targetTab === 'webdev') triggerMorph('circle');
+        else if (targetTab === 'ai') triggerMorph('wave');
+        else if (targetTab === 'hosting') triggerMorph('grid');
+        else if (targetTab === 'support') triggerMorph('cross');
+      });
+    });
+
+    // Hover triggers
+    const hoverMorphSelectors = [
+      '.navbar .logo', 
+      '.footer .logo', 
+      '.btn-hero-pill-primary', 
+      '.btn-hero-pill-secondary',
+      '.btn-nav-pill'
+    ];
+    hoverMorphSelectors.forEach(selector => {
+      const el = document.querySelector(selector);
+      if (el) {
+        el.addEventListener('mouseenter', () => triggerMorph('logo'));
+        el.addEventListener('mouseleave', () => triggerMorph('float'));
+      }
+    });
+
+    // Track mouse coordinates
+    const heroSec = document.querySelector('.hero-section');
+    if (heroSec) {
+      heroSec.addEventListener('mousemove', (e) => {
+        const rect = canvas.getBoundingClientRect();
+        mouseX = e.clientX - rect.left;
+        mouseY = e.clientY - rect.top;
+      });
+      heroSec.addEventListener('mouseleave', () => {
+        mouseX = undefined;
+        mouseY = undefined;
+      });
+    }
+
+    let animationFrameId;
+    let isAnimating = true;
+    let startTime = Date.now();
+
+    function loop() {
+      if (!isAnimating) return;
+      ctx.clearRect(0, 0, width, height);
+
+      const elapsed = Date.now() - startTime;
+      
+      const cols = Math.ceil(width / gridSize);
+      const rows = Math.ceil(height / gridSize);
+
+      // 1. Draw coordinate crosshair grid watermark
+      ctx.strokeStyle = 'rgba(0, 48, 135, 0.04)';
+      ctx.lineWidth = 0.8;
+      for (let c = 1; c < cols; c++) {
+        for (let r = 1; r < rows; r++) {
+          const x = c * gridSize;
+          const y = r * gridSize;
+          ctx.beginPath();
+          ctx.moveTo(x - 3, y);
+          ctx.lineTo(x + 3, y);
+          ctx.moveTo(x, y - 3);
+          ctx.lineTo(x, y + 3);
+          ctx.stroke();
+        }
+      }
+
+      // 2. Update and draw circuit traces
+      activeTraces.forEach(t => {
+        t.update();
+        t.draw();
+      });
+
+      // 3. Update and draw nodes (particles)
+      particles.forEach(p => {
+        p.update(elapsed);
+        p.draw();
+      });
+
+      // 4. In MORPH mode, draw vector blueprint lines connecting nearby nodes
+      let inMorph = particles.some(p => p.state === 'MORPH');
+      if (inMorph) {
+        ctx.lineWidth = 0.5;
+        for (let i = 0; i < particles.length; i++) {
+          const p1 = particles[i];
+          for (let j = i + 1; j < particles.length; j++) {
+            const p2 = particles[j];
+            const dx = p1.x - p2.x;
+            const dy = p1.y - p2.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            
+            // Connect only within blueprint cluster radius
+            if (dist < 42) {
+              const lineAlpha = (1 - (dist / 42)) * 0.18;
+              ctx.beginPath();
+              ctx.moveTo(p1.x, p1.y);
+              ctx.lineTo(p2.x, p2.y);
+              ctx.strokeStyle = `rgba(0, 48, 135, ${lineAlpha * p1.alpha * p2.alpha * 3.5})`;
+              ctx.stroke();
+            }
+          }
+        }
+      }
+
+      // 5. Draw cursor sweep radar HUD
+      if (mouseX !== undefined && mouseY !== undefined) {
+        // Draw radar sweep circle
+        ctx.strokeStyle = 'rgba(16, 185, 129, 0.16)';
+        ctx.lineWidth = 1.0;
+        ctx.beginPath();
+        ctx.arc(mouseX, mouseY, 160, 0, Math.PI * 2);
+        ctx.stroke();
+        
+        ctx.fillStyle = 'rgba(16, 185, 129, 0.005)';
+        ctx.fill();
+        
+        // Draw coordinate details for junctions inside scanner radius
+        for (let c = 1; c < cols; c++) {
+          for (let r = 1; r < rows; r++) {
+            const x = c * gridSize;
+            const y = r * gridSize;
+            const dx = x - mouseX;
+            const dy = y - mouseY;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            
+            if (dist < 160) {
+              const ratio = 1 - (dist / 160);
+              
+              // Node ring
+              ctx.strokeStyle = `rgba(16, 185, 129, ${ratio * 0.35})`;
+              ctx.lineWidth = 0.8;
+              ctx.beginPath();
+              ctx.arc(x, y, 5 + ratio * 3, 0, Math.PI * 2);
+              ctx.stroke();
+              
+              // Coordinates text label
+              ctx.fillStyle = `rgba(16, 185, 129, ${ratio * 0.45})`;
+              ctx.font = '7px monospace';
+              ctx.fillText(`c${c}.r${r}`, x + 6, y - 4);
+            }
+          }
+        }
+      }
+
+      animationFrameId = requestAnimationFrame(loop);
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          isAnimating = true;
+          loop();
+        } else {
+          isAnimating = false;
+          cancelAnimationFrame(animationFrameId);
+        }
+      });
+    }, { threshold: 0.05 });
+
+    observer.observe(heroSec);
+  }
+
+  // 3. Rotating Hero Titles Interactivity
+  const heroTitles = [
+    [
+      "Too many technology and AI choices?",
+      "Axon helps you make sense of it, plan wisely, and implement what truly matters."
+    ],
+    [
+      "Technology and AI are evolving faster than ever.",
+      "Axon helps your business navigate the noise and focus on results."
+    ],
+    [
+      "Confused by the endless stream of AI and technology tools?",
+      "Axon helps you choose the right solutions and avoid costly mistakes."
+    ],
+    [
+      "Don't let technology overwhelm your business.",
+      "Let Axon simplify, plan and execute your digital journey."
+    ],
+    [
+      "The challenge isn't technology. It's knowing what to do next.",
+      "Axon helps businesses turn complexity into opportunity."
+    ],
+    [
+      "AI is changing how business works.",
+      "Axon helps you understand it, adopt it, and benefit from it."
+    ],
+    [
+      "Every day brings a new technology trend.",
+      "Axon helps you focus on the ones that actually matter."
+    ],
+    [
+      "Technology, websites, cloud, cybersecurity, AI. Where do you start?",
+      "Start with Axon. We help you plan, implement and grow with confidence."
+    ]
+  ];
+
+  const titleEl = document.getElementById('heroTitle');
+  const line1El = document.getElementById('heroTitleLine1');
+  const line2El = document.getElementById('heroTitleLine2');
+  const container1El = document.getElementById('heroTitleLineContainer1');
+  const container2El = document.getElementById('heroTitleLineContainer2');
+
+  function checkAndSetupMarquee(lineEl, containerEl, lineNumber) {
+    if (!lineEl || !containerEl) return;
+    
+    lineEl.classList.remove('scroll-active-1', 'scroll-active-2');
+    lineEl.style.removeProperty('--scroll-dist');
+    containerEl.style.justifyContent = 'center';
+    
+    void lineEl.offsetHeight; // Force reflow
+    
+    const containerWidth = containerEl.clientWidth;
+    const textWidth = lineEl.scrollWidth;
+    
+    if (textWidth > containerWidth) {
+      const overflow = textWidth - containerWidth + 24; // extra breathing room
+      containerEl.style.justifyContent = 'flex-start';
+      lineEl.style.setProperty('--scroll-dist', `-${overflow}px`);
+      lineEl.classList.add(`scroll-active-${lineNumber}`);
+    } else {
+      containerEl.style.justifyContent = 'center';
+    }
+  }
+
+  if (titleEl && line1El && line2El && container1El && container2El) {
+    let currentIndex = 0;
+    const intervalTime = 11000; // 11 seconds cycle time (comfortable scroll and read duration)
+    let rotationInterval = null;
+    let line2Timeout = null;
+
+    // Helper to reveal Line 2 after a delay
+    function revealLine2() {
+      container2El.classList.add('line-hidden');
+      if (line2Timeout) clearTimeout(line2Timeout);
+      
+      line2Timeout = setTimeout(() => {
+        container2El.classList.remove('line-hidden');
+        // Check for horizontal scroll requirements on Line 2 once it enters
+        checkAndSetupMarquee(line2El, container2El, 2);
+      }, 2500); // 2.5 seconds delay (reveals after Line 1 is read)
+    }
+
+    // Navigation function
+    function navigateTitle(direction) {
+      titleEl.classList.add('fade-out');
+      
+      setTimeout(() => {
+        currentIndex = (currentIndex + direction + heroTitles.length) % heroTitles.length;
+        line1El.textContent = heroTitles[currentIndex][0];
+        line2El.textContent = heroTitles[currentIndex][1];
+        
+        // Reset Line 2 visibility for the next tagline
+        container2El.classList.add('line-hidden');
+        
+        titleEl.classList.remove('fade-out');
+        titleEl.classList.add('fade-in-prep');
+        
+        // Force DOM reflow
+        void titleEl.offsetHeight;
+        
+        titleEl.classList.remove('fade-in-prep');
+        
+        // Check Line 1 marquee immediately
+        checkAndSetupMarquee(line1El, container1El, 1);
+        
+        // Reveal Line 2 after delay
+        revealLine2();
+      }, 500);
+    }
+
+    // Auto rotation management
+    function startAutoRotation() {
+      if (rotationInterval) clearInterval(rotationInterval);
+      rotationInterval = setInterval(() => {
+        navigateTitle(1);
+      }, intervalTime);
+    }
+
+    // Initial setup
+    checkAndSetupMarquee(line1El, container1El, 1);
+    revealLine2();
+    startAutoRotation();
+
+    // Bind Arrow Buttons manual controls
+    const prevBtn = document.getElementById('prevTitle');
+    const nextBtn = document.getElementById('nextTitle');
+
+    if (prevBtn) {
+      prevBtn.addEventListener('click', () => {
+        navigateTitle(-1);
+        startAutoRotation(); // reset auto-rotation timer
+      });
+    }
+
+    if (nextBtn) {
+      nextBtn.addEventListener('click', () => {
+        navigateTitle(1);
+        startAutoRotation(); // reset auto-rotation timer
+      });
+    }
+    
+    // Handle viewport resize dynamically
+    window.addEventListener('resize', () => {
+      checkAndSetupMarquee(line1El, container1El, 1);
+      checkAndSetupMarquee(line2El, container2El, 2);
+    });
+  }
+
+  // 4. Static Category Tagline Rotation & Click Modal Binding
+  const categoryTaglines = {
+    "Technology & AI Advisory": "Helping business leaders navigate technology and AI with confidence.",
+    "Websites & Digital Presence": "Professional websites, portals and online solutions that support business growth.",
+    "AI & Business Automation": "Practical AI solutions that improve productivity and reduce manual work.",
+    "Cloud & Email Solutions": "Modern workplace solutions that help teams work smarter.",
+    "Hosting, Domains & Infrastructure": "Reliable digital infrastructure that keeps your business running.",
+    "Security, Recovery & Performance": "Protecting your business and ensuring continuity."
+  };
+  const categoryList = Object.keys(categoryTaglines);
+
+  const activeCategoryEl = document.getElementById('activeCategory');
+  const activeCategorySpan = activeCategoryEl ? activeCategoryEl.querySelector('span') : null;
+  const tickerDropdown = document.getElementById('tickerDropdown');
+  const dropdownItems = document.querySelectorAll('.ticker-dropdown-item');
+  const tickerDescription = document.getElementById('tickerDescription');
+
+  let activeCategoryFilter = 'all'; // 'all' or specific category name
+  let currentRotationIndex = 0;
+  let rotationInterval = null;
+  const ROTATION_TIME = 6000; // 6 seconds per category
+
+  // Smooth fade transition helper
+  function updateTickerText(taglineText) {
+    if (!tickerDescription) return;
+    tickerDescription.classList.add('fade-out');
+    setTimeout(() => {
+      tickerDescription.textContent = taglineText;
+      tickerDescription.classList.remove('fade-out');
+    }, 300);
+  }
+
+  // Start category tagline rotation
+  function startRotation() {
+    if (rotationInterval) clearInterval(rotationInterval);
+    
+    rotationInterval = setInterval(() => {
+      if (activeCategoryFilter !== 'all') return;
+      
+      currentRotationIndex = (currentRotationIndex + 1) % categoryList.length;
+      const nextCat = categoryList[currentRotationIndex];
+      
+      if (activeCategorySpan) {
+        activeCategorySpan.textContent = nextCat;
+      }
+      updateTickerText(categoryTaglines[nextCat]);
+    }, ROTATION_TIME);
+  }
+
+  // Stop category tagline rotation
+  function stopRotation() {
+    if (rotationInterval) {
+      clearInterval(rotationInterval);
+      rotationInterval = null;
+    }
+  }
+
+  // Bind click listener for tagline itself (to open modal)
+  if (tickerDescription) {
+    tickerDescription.addEventListener('click', () => {
+      const currentCat = activeCategorySpan ? activeCategorySpan.textContent : 'Services';
+      const currentTagline = tickerDescription.textContent.trim();
+      openContactModal(`Hi Axon team,\n\nI am interested in learning more about your services under "${currentCat}":\n"${currentTagline}"\n\nPlease let me know how we can proceed.`);
+    });
+  }
+
+  // 5. Category Dropdown & Manual Select Lock Logic
+  if (activeCategoryEl && tickerDropdown) {
+    // Click red badge -> Toggle dropdown
+    activeCategoryEl.addEventListener('click', (e) => {
+      activeCategoryEl.classList.toggle('open');
+      tickerDropdown.classList.toggle('open');
+    });
+
+    // Close dropdown on click outside
+    document.addEventListener('click', (e) => {
+      if (activeCategoryEl && !activeCategoryEl.contains(e.target)) {
+        activeCategoryEl.classList.remove('open');
+        tickerDropdown.classList.remove('open');
+      }
+    });
+
+    // Handle dropdown category selection
+    dropdownItems.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation(); // Prevent re-triggering parent click handler
+        
+        const selectedCat = btn.getAttribute('data-cat');
+        activeCategoryFilter = selectedCat;
+
+        // Toggle active class on dropdown buttons
+        dropdownItems.forEach(item => item.classList.remove('active'));
+        btn.classList.add('active');
+
+        // Close dropdown
+        activeCategoryEl.classList.remove('open');
+        tickerDropdown.classList.remove('open');
+
+        if (selectedCat === 'all') {
+          // Reset to default and resume auto-rotation
+          if (activeCategorySpan) activeCategorySpan.textContent = 'Technology & AI Advisory';
+          currentRotationIndex = 0;
+          updateTickerText(categoryTaglines['Technology & AI Advisory']);
+          startRotation();
+        } else {
+          // Lock to specific category and stop rotation
+          stopRotation();
+          const decodedCat = selectedCat.replace(/&amp;/g, '&');
+          if (activeCategorySpan) activeCategorySpan.textContent = decodedCat;
+          updateTickerText(categoryTaglines[decodedCat] || '');
+        }
+      });
+    });
+  }
+
+  // Initial loop startup
+  if (tickerDescription && activeCategorySpan) {
+    activeCategorySpan.textContent = 'Technology & AI Advisory';
+    tickerDescription.textContent = categoryTaglines['Technology & AI Advisory'];
+    startRotation();
+  }
+});

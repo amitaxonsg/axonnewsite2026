@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+  <title id="title">Executive advisory decision dashboard</title>
+  <desc id="desc">An executive advisory dashboard showing decisions, risks, budget and vendor comparison.</desc>
+  <rect width="1200" height="760" rx="34" fill="#f6f8fb"/>
+  <rect x="56" y="52" width="1088" height="656" rx="30" fill="#ffffff" stroke="#dbe5f2"/>
+  <text x="94" y="112" fill="#0f172a" font-family="Arial, sans-serif" font-size="30" font-weight="700">Executive Advisory Brief</text>
+  <text x="94" y="146" fill="#64748b" font-family="Arial, sans-serif" font-size="17">Clear decisions for owners and management teams.</text>
+  <g transform="translate(94 190)">
+    <rect width="470" height="420" rx="24" fill="#f8fafc" stroke="#dbe5f2"/>
+    <text x="28" y="44" fill="#003087" font-family="Arial, sans-serif" font-size="20" font-weight="700">Board Decision Summary</text>
+    <g font-family="Arial, sans-serif" font-size="17" fill="#334155">
+      <rect x="28" y="78" width="414" height="56" rx="14" fill="#ffffff" stroke="#e2e8f0"/>
+      <text x="48" y="113">Move email platform</text><text x="332" y="113" fill="#16a34a" font-weight="700">Approve</text>
+      <rect x="28" y="154" width="414" height="56" rx="14" fill="#ffffff" stroke="#e2e8f0"/>
+      <text x="48" y="189">Launch AI chatbot pilot</text><text x="332" y="189" fill="#f59e0b" font-weight="700">Pilot</text>
+      <rect x="28" y="230" width="414" height="56" rx="14" fill="#ffffff" stroke="#e2e8f0"/>
+      <text x="48" y="265">Replace CRM</text><text x="332" y="265" fill="#64748b" font-weight="700">Later</text>
+      <rect x="28" y="306" width="414" height="56" rx="14" fill="#ffffff" stroke="#e2e8f0"/>
+      <text x="48" y="341">Security cleanup</text><text x="332" y="341" fill="#ef4444" font-weight="700">Urgent</text>
+    </g>
+  </g>
+  <g transform="translate(606 190)">
+    <rect width="492" height="196" rx="24" fill="#0f274a"/>
+    <text x="28" y="42" fill="#ffffff" font-family="Arial, sans-serif" font-size="20" font-weight="700">Risk vs Value</text>
+    <line x1="58" y1="154" x2="430" y2="154" stroke="#88a7d5"/>
+    <line x1="58" y1="70" x2="58" y2="154" stroke="#88a7d5"/>
+    <circle cx="154" cy="98" r="18" fill="#22c55e"/>
+    <circle cx="258" cy="82" r="22" fill="#3b82f6"/>
+    <circle cx="342" cy="128" r="16" fill="#f97316"/>
+    <text x="78" y="178" fill="#cfe3ff" font-family="Arial, sans-serif" font-size="13">Lower risk</text>
+    <text x="334" y="178" fill="#cfe3ff" font-family="Arial, sans-serif" font-size="13">Higher value</text>
+  </g>
+  <g transform="translate(606 414)">
+    <rect width="492" height="196" rx="24" fill="#f8fafc" stroke="#dbe5f2"/>
+    <text x="28" y="42" fill="#003087" font-family="Arial, sans-serif" font-size="20" font-weight="700">Vendor / Platform Comparison</text>
+    <g font-family="Arial, sans-serif" font-size="16" fill="#334155">
+      <text x="30" y="86">Cost</text><rect x="150" y="72" width="260" height="12" rx="6" fill="#dbeafe"/><rect x="150" y="72" width="150" height="12" rx="6" fill="#3b82f6"/>
+      <text x="30" y="124">Support</text><rect x="150" y="110" width="260" height="12" rx="6" fill="#dbeafe"/><rect x="150" y="110" width="210" height="12" rx="6" fill="#22c55e"/>
+      <text x="30" y="162">Data risk</text><rect x="150" y="148" width="260" height="12" rx="6" fill="#fee2e2"/><rect x="150" y="148" width="92" height="12" rx="6" fill="#ef4444"/>
+    </g>
+  </g>
+</svg>

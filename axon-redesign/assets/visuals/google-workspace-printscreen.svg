@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+  <title id="title">Google Workspace admin screenshot style dashboard</title>
+  <desc id="desc">A screenshot-style Google Workspace dashboard with Gmail, Drive, Calendar and Admin panels.</desc>
+  <rect width="1200" height="760" rx="34" fill="#f8fafc"/>
+  <rect x="46" y="48" width="1108" height="664" rx="28" fill="#ffffff" stroke="#dbe5f2"/>
+  <rect x="46" y="48" width="1108" height="72" rx="28" fill="#ffffff"/>
+  <circle cx="92" cy="84" r="19" fill="#4285f4"/><circle cx="116" cy="84" r="19" fill="#34a853"/><circle cx="140" cy="84" r="19" fill="#fbbc04"/><circle cx="164" cy="84" r="19" fill="#ea4335"/>
+  <text x="204" y="92" fill="#202124" font-family="Arial, sans-serif" font-size="26" font-weight="700">Google Workspace Admin</text>
+  <rect x="84" y="154" width="242" height="498" rx="22" fill="#f8fafc" stroke="#e2e8f0"/>
+  <text x="112" y="196" fill="#334155" font-family="Arial, sans-serif" font-size="18" font-weight="700">Apps</text>
+  <g font-family="Arial, sans-serif" font-size="17" fill="#334155">
+    <circle cx="118" cy="240" r="10" fill="#ea4335"/><text x="140" y="246">Gmail</text>
+    <circle cx="118" cy="284" r="10" fill="#34a853"/><text x="140" y="290">Drive</text>
+    <circle cx="118" cy="328" r="10" fill="#4285f4"/><text x="140" y="334">Calendar</text>
+    <circle cx="118" cy="372" r="10" fill="#fbbc04"/><text x="140" y="378">Meet</text>
+    <circle cx="118" cy="416" r="10" fill="#5f6368"/><text x="140" y="422">Admin</text>
+  </g>
+  <g transform="translate(360 154)">
+    <rect width="704" height="168" rx="22" fill="#eef6ff" stroke="#bfdbfe"/>
+    <text x="30" y="44" fill="#174ea6" font-family="Arial, sans-serif" font-size="22" font-weight="700">Users, Gmail and Drive setup</text>
+    <text x="30" y="82" fill="#334155" font-family="Arial, sans-serif" font-size="17">Domain verified, SPF/DKIM/DMARC configured, users protected with 2-step verification.</text>
+    <rect x="30" y="112" width="150" height="28" rx="14" fill="#34a853"/><text x="52" y="132" fill="#ffffff" font-family="Arial, sans-serif" font-size="14" font-weight="700">Ready</text>
+    <rect x="198" y="112" width="184" height="28" rx="14" fill="#4285f4"/><text x="220" y="132" fill="#ffffff" font-family="Arial, sans-serif" font-size="14" font-weight="700">Secure email</text>
+  </g>
+  <g transform="translate(360 356)">
+    <rect width="326" height="220" rx="22" fill="#ffffff" stroke="#e2e8f0"/>
+    <text x="28" y="42" fill="#202124" font-family="Arial, sans-serif" font-size="20" font-weight="700">Gmail Status</text>
+    <text x="28" y="90" fill="#16a34a" font-family="Arial, sans-serif" font-size="38" font-weight="700">98%</text>
+    <text x="28" y="124" fill="#64748b" font-family="Arial, sans-serif" font-size="16">Delivery healthy</text>
+    <rect x="28" y="154" width="246" height="14" rx="7" fill="#e2e8f0"/><rect x="28" y="154" width="224" height="14" rx="7" fill="#34a853"/>
+  </g>
+  <g transform="translate(738 356)">
+    <rect width="326" height="220" rx="22" fill="#ffffff" stroke="#e2e8f0"/>
+    <text x="28" y="42" fill="#202124" font-family="Arial, sans-serif" font-size="20" font-weight="700">Drive Storage</text>
+    <rect x="28" y="76" width="230" height="18" rx="9" fill="#e2e8f0"/><rect x="28" y="76" width="138" height="18" rx="9" fill="#4285f4"/>
+    <text x="28" y="128" fill="#334155" font-family="Arial, sans-serif" font-size="17">Shared drives organized</text>
+    <text x="28" y="162" fill="#334155" font-family="Arial, sans-serif" font-size="17">Staff access reviewed</text>
+  </g>
+</svg>

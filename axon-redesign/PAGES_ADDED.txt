@@ -1,0 +1,76 @@
+﻿Axon redesign completed pages
+
+technology-ai-advisory.html - Technology & AI Advisory
+technology-strategy-planning.html - Technology Strategy & Planning
+ai-readiness-adoption.html - AI Readiness & Adoption
+digital-transformation.html - Digital Transformation
+technology-assessments.html - Technology Assessments
+executive-advisory.html - Executive Advisory
+ai-tool-platform-selection.html - AI Tool & Platform Selection
+cloud-email-solutions.html - Cloud & Email Solutions
+google-workspace-solutions.html - Google Workspace Solutions
+microsoft-365-solutions.html - Microsoft 365 Solutions
+business-email-solutions.html - Business Email Solutions
+cloud-migration-services.html - Cloud Migration Services
+document-collaboration-platforms.html - Document & Collaboration Platforms
+productivity-solutions.html - Productivity Solutions
+websites-digital-presence.html - Websites & Digital Presence
+corporate-websites.html - Corporate Websites
+website-revamps-modernization.html - Website Revamps & Modernization
+e-commerce-solutions.html - E-Commerce Solutions
+customer-member-portals.html - Customer & Member Portals
+business-applications.html - Business Applications
+website-maintenance-support.html - Website Maintenance & Support
+website-optimization-audit.html - Website Optimization Audit
+mobile-app-technical-assistance.html - Mobile App Technical Assistance
+wix-website-support.html - Wix Website Support
+shopify-store-support.html - Shopify Store Support
+hosting-domains-infrastructure.html - Hosting, Domains & Infrastructure
+corporate-hosting.html - Corporate Hosting
+cloud-hosting-solutions.html - Cloud Hosting Solutions
+domain-registration-management.html - Domain Registration & Management
+business-email-hosting.html - Business Email Hosting
+server-setup-deployment.html - Server Setup & Deployment
+server-management-monitoring.html - Server Management & Monitoring
+application-deployment.html - Application Deployment
+ai-website-app-publishing.html - AI Website & App Publishing
+infrastructure-planning.html - Infrastructure Planning
+ai-business-automation.html - AI & Business Automation
+ai-consulting-implementation.html - AI Consulting & Implementation
+ai-assistants-for-business.html - AI Assistants for Business
+website-ai-chatbot.html - Human-Like Website AI Chatbot
+company-ai-workspaces.html - Company AI Workspaces
+ai-writing-content-assistant.html - AI Writing & Content Assistant
+business-process-automation.html - Business Process Automation
+business-growth-operations-support.html - Business Growth & Operations Support
+seo-local-business-visibility.html - SEO & Local Business Visibility
+workflow-automation.html - Workflow Automation
+whatsapp-marketing-automation.html - WhatsApp Marketing & Automation
+private-ai-solutions.html - Private AI Solutions
+security-recovery-performance.html - Security, Recovery & Performance
+website-security.html - Website Security
+website-recovery.html - Website Recovery
+malware-removal.html - Malware Removal
+backup-disaster-recovery.html - Backup & Disaster Recovery
+performance-optimization.html - Performance Optimization
+website-monitoring-health-checks.html - Website Monitoring & Health Checks
+use-cases.html - Use Cases
+credit-top-up.html - Credit Top-up
+trending/index.html - Trending Technology & AI Insights
+trending/ai/index.html - Trending AI Insights
+trending/business/index.html - Trending Business Technology
+trending/automation/index.html - Trending Automation Insights
+trending/productivity/index.html - Trending Productivity Tools
+trending/security/index.html - Trending Cybersecurity Briefs
+trending/cloud/index.html - Trending Cloud Solutions
+trending/websites/index.html - Trending Websites & Digital Presence
+trending/googleworkspace/index.html - Trending Google Workspace
+trending/microsoft365/index.html - Trending Microsoft 365
+
+Notes:
+- Existing AntiGravity branding, images, CSS and JS retained.
+- Mega menu service links now point to real pages.
+- Pages are responsive using existing mobile styles plus service detail styles.
+- Service pages now use top 6 real client question cards.
+- Added website optimization audit and mobile app technical assistance services.
+

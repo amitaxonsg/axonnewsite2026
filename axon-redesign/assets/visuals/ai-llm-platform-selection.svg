@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+  <title id="title">AI and LLM platform selection board</title>
+  <desc id="desc">A comparison board with major AI tools and LLM platforms for business selection.</desc>
+  <rect width="1200" height="760" rx="34" fill="#f7f9fc"/>
+  <rect x="54" y="54" width="1092" height="652" rx="30" fill="#ffffff" stroke="#dbe5f2"/>
+  <text x="92" y="112" fill="#0f172a" font-family="Arial, sans-serif" font-size="30" font-weight="700">AI Tool &amp; LLM Platform Selection</text>
+  <text x="92" y="146" fill="#64748b" font-family="Arial, sans-serif" font-size="17">Compare common AI platforms by business use case, data risk and cost.</text>
+  <g font-family="Arial, sans-serif" font-weight="700">
+    <g transform="translate(92 194)"><rect width="206" height="118" rx="22" fill="#111318"/><circle cx="46" cy="46" r="24" fill="#10a37f"/><text x="82" y="50" fill="#fff" font-size="20">ChatGPT</text><text x="28" y="92" fill="#cbd5e1" font-size="14" font-weight="400">Writing, coding, support</text></g>
+    <g transform="translate(322 194)"><rect width="206" height="118" rx="22" fill="#fff7ed" stroke="#fed7aa"/><circle cx="46" cy="46" r="24" fill="#d97706"/><text x="82" y="50" fill="#7c2d12" font-size="20">Claude</text><text x="28" y="92" fill="#7c2d12" font-size="14" font-weight="400">Long docs and analysis</text></g>
+    <g transform="translate(552 194)"><rect width="206" height="118" rx="22" fill="#eef6ff" stroke="#bfdbfe"/><circle cx="46" cy="46" r="24" fill="#4285f4"/><text x="82" y="50" fill="#174ea6" font-size="20">Gemini</text><text x="28" y="92" fill="#334155" font-size="14" font-weight="400">Google Workspace AI</text></g>
+    <g transform="translate(782 194)"><rect width="270" height="118" rx="22" fill="#f5f3ff" stroke="#ddd6fe"/><rect x="26" y="26" width="18" height="18" fill="#f25022"/><rect x="48" y="26" width="18" height="18" fill="#7fba00"/><rect x="26" y="48" width="18" height="18" fill="#00a4ef"/><rect x="48" y="48" width="18" height="18" fill="#ffb900"/><text x="88" y="50" fill="#312e81" font-size="20">Microsoft Copilot</text><text x="28" y="92" fill="#334155" font-size="14" font-weight="400">M365, Teams, Outlook</text></g>
+    <g transform="translate(92 346)"><rect width="206" height="118" rx="22" fill="#f8fafc" stroke="#dbe5f2"/><circle cx="46" cy="46" r="24" fill="#1f2937"/><text x="82" y="50" fill="#0f172a" font-size="20">Perplexity</text><text x="28" y="92" fill="#334155" font-size="14" font-weight="400">Research and sources</text></g>
+    <g transform="translate(322 346)"><rect width="206" height="118" rx="22" fill="#eff6ff" stroke="#bfdbfe"/><circle cx="46" cy="46" r="24" fill="#2563eb"/><text x="82" y="50" fill="#1e3a8a" font-size="20">Llama</text><text x="28" y="92" fill="#334155" font-size="14" font-weight="400">Private/self-host option</text></g>
+    <g transform="translate(552 346)"><rect width="206" height="118" rx="22" fill="#fff1f2" stroke="#fecdd3"/><circle cx="46" cy="46" r="24" fill="#ef4444"/><text x="82" y="50" fill="#9f1239" font-size="20">Mistral</text><text x="28" y="92" fill="#334155" font-size="14" font-weight="400">Fast EU model family</text></g>
+    <g transform="translate(782 346)"><rect width="206" height="118" rx="22" fill="#f8fafc" stroke="#dbe5f2"/><circle cx="46" cy="46" r="24" fill="#000000"/><text x="82" y="50" fill="#0f172a" font-size="20">Grok</text><text x="28" y="92" fill="#334155" font-size="14" font-weight="400">Social/news context</text></g>
+    <g transform="translate(1012 346)"><rect width="86" height="118" rx="22" fill="#ecfeff" stroke="#a5f3fc"/><circle cx="43" cy="42" r="22" fill="#0891b2"/><text x="18" y="84" fill="#0e7490" font-size="17">DeepSeek</text></g>
+  </g>
+  <g transform="translate(92 524)">
+    <rect width="1006" height="94" rx="22" fill="#0f274a"/>
+    <text x="30" y="38" fill="#ffffff" font-family="Arial, sans-serif" font-size="20" font-weight="700">Axon recommendation method</text>
+    <text x="30" y="68" fill="#cfe3ff" font-family="Arial, sans-serif" font-size="17">Pick tools by privacy, staff skill, budget, language, workflow and support needs.</text>
+  </g>
+</svg>

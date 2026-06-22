@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+  <title id="title">Website maintenance and support dashboard</title>
+  <desc id="desc">A website maintenance dashboard showing updates, backups, uptime, security and support requests.</desc>
+  <rect width="1200" height="760" rx="34" fill="#f8fbff"/>
+  <rect x="58" y="58" width="1084" height="644" rx="30" fill="#ffffff" stroke="#dbe5f2"/>
+  <text x="96" y="118" fill="#0f172a" font-family="Arial, sans-serif" font-size="30" font-weight="700">Website Maintenance Dashboard</text>
+  <text x="96" y="152" fill="#64748b" font-family="Arial, sans-serif" font-size="17">Updates, backup checks, security scans and small support requests in one place.</text>
+  <g transform="translate(96 212)" font-family="Arial, sans-serif">
+    <rect width="236" height="160" rx="22" fill="#f0fdf4" stroke="#bbf7d0"/><text x="28" y="48" fill="#166534" font-size="20" font-weight="700">Uptime</text><text x="28" y="102" fill="#0f172a" font-size="42" font-weight="700">99.9%</text>
+    <g transform="translate(260 0)"><rect width="236" height="160" rx="22" fill="#eef6ff" stroke="#bfdbfe"/><text x="28" y="48" fill="#174ea6" font-size="20" font-weight="700">Backups</text><text x="28" y="102" fill="#0f172a" font-size="42" font-weight="700">OK</text></g>
+    <g transform="translate(520 0)"><rect width="236" height="160" rx="22" fill="#fff7ed" stroke="#fed7aa"/><text x="28" y="48" fill="#9a3412" font-size="20" font-weight="700">Updates</text><text x="28" y="102" fill="#0f172a" font-size="42" font-weight="700">4</text></g>
+    <g transform="translate(780 0)"><rect width="236" height="160" rx="22" fill="#f8fafc" stroke="#dbe5f2"/><text x="28" y="48" fill="#003087" font-size="20" font-weight="700">Tickets</text><text x="28" y="102" fill="#0f172a" font-size="42" font-weight="700">2</text></g>
+  </g>
+  <g transform="translate(96 430)">
+    <rect width="1016" height="170" rx="22" fill="#0f274a"/>
+    <text x="34" y="44" fill="#ffffff" font-family="Arial, sans-serif" font-size="21" font-weight="700">Support queue</text>
+    <text x="34" y="88" fill="#cfe3ff" font-family="Arial, sans-serif" font-size="17">Plugin update - scheduled</text>
+    <text x="34" y="124" fill="#cfe3ff" font-family="Arial, sans-serif" font-size="17">Contact form test - passed</text>
+    <text x="420" y="88" fill="#cfe3ff" font-family="Arial, sans-serif" font-size="17">Security scan - clean</text>
+    <text x="420" y="124" fill="#cfe3ff" font-family="Arial, sans-serif" font-size="17">Content change - pending approval</text>
+  </g>
+</svg>

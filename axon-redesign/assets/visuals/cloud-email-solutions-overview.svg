@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+  <title id="title">Cloud and email solutions overview</title>
+  <desc id="desc">Google Workspace, Microsoft 365, email security, files and collaboration overview.</desc>
+  <rect width="1200" height="760" rx="34" fill="#f7fbff"/>
+  <rect x="58" y="58" width="1084" height="644" rx="30" fill="#ffffff" stroke="#dbe5f2"/>
+  <text x="96" y="118" fill="#0f172a" font-family="Arial, sans-serif" font-size="30" font-weight="700">Cloud &amp; Email Solutions</text>
+  <text x="96" y="152" fill="#64748b" font-family="Arial, sans-serif" font-size="17">Choose, migrate and support the right email and collaboration platform.</text>
+  <g transform="translate(96 214)">
+    <rect width="460" height="300" rx="26" fill="#eef6ff" stroke="#bfdbfe"/>
+    <circle cx="66" cy="62" r="18" fill="#4285f4"/><circle cx="88" cy="62" r="18" fill="#34a853"/><circle cx="110" cy="62" r="18" fill="#fbbc04"/><circle cx="132" cy="62" r="18" fill="#ea4335"/>
+    <text x="168" y="70" fill="#174ea6" font-family="Arial, sans-serif" font-size="22" font-weight="700">Google Workspace</text>
+    <text x="48" y="132" fill="#334155" font-family="Arial, sans-serif" font-size="17">Gmail, Drive, Calendar, Meet, Admin</text>
+    <rect x="48" y="172" width="350" height="18" rx="9" fill="#dbeafe"/><rect x="48" y="172" width="286" height="18" rx="9" fill="#4285f4"/>
+    <text x="48" y="228" fill="#334155" font-family="Arial, sans-serif" font-size="17">Setup, DNS, migration and training</text>
+  </g>
+  <g transform="translate(644 214)">
+    <rect width="460" height="300" rx="26" fill="#f5f3ff" stroke="#ddd6fe"/>
+    <rect x="52" y="48" width="20" height="20" fill="#f25022"/><rect x="76" y="48" width="20" height="20" fill="#7fba00"/><rect x="52" y="72" width="20" height="20" fill="#00a4ef"/><rect x="76" y="72" width="20" height="20" fill="#ffb900"/>
+    <text x="130" y="74" fill="#312e81" font-family="Arial, sans-serif" font-size="22" font-weight="700">Microsoft 365</text>
+    <text x="48" y="132" fill="#334155" font-family="Arial, sans-serif" font-size="17">Outlook, Teams, SharePoint, OneDrive</text>
+    <rect x="48" y="172" width="350" height="18" rx="9" fill="#e9d5ff"/><rect x="48" y="172" width="268" height="18" rx="9" fill="#7c3aed"/>
+    <text x="48" y="228" fill="#334155" font-family="Arial, sans-serif" font-size="17">Licenses, access, security and support</text>
+  </g>
+  <g transform="translate(96 560)">
+    <rect width="1008" height="72" rx="20" fill="#0f274a"/>
+    <text x="34" y="45" fill="#cfe3ff" font-family="Arial, sans-serif" font-size="18">Axon helps owners decide the platform, migrate safely and support staff after go-live.</text>
+  </g>
+</svg>

@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+  <title id="title">Business using website, AI and technology operations</title>
+  <desc id="desc">A business operations dashboard showing website, AI assistant, automation, CRM, analytics, WhatsApp, bookings, payments and reviews connected together.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#f8fbff"/>
+      <stop offset="1" stop-color="#edf5ff"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#0f172a" flood-opacity=".14"/>
+    </filter>
+  </defs>
+  <rect width="1200" height="760" rx="34" fill="url(#bg)"/>
+  <rect x="54" y="54" width="1092" height="652" rx="30" fill="#ffffff" stroke="#dbe5f2"/>
+  <rect x="84" y="88" width="1032" height="76" rx="24" fill="#0f274a"/>
+  <text x="122" y="136" fill="#ffffff" font-family="Arial, sans-serif" font-size="28" font-weight="700">Business Growth</text>
+  <text x="822" y="135" fill="#cfe3ff" font-family="Arial, sans-serif" font-size="17">Website + AI + operations</text>
+  <g transform="translate(438 238)" filter="url(#shadow)">
+    <rect width="324" height="214" rx="30" fill="#003087"/>
+    <text x="42" y="62" fill="#ffffff" font-family="Arial, sans-serif" font-size="28" font-weight="700">Company</text>
+    <text x="42" y="102" fill="#cfe3ff" font-family="Arial, sans-serif" font-size="18">One connected business flow</text>
+    <rect x="42" y="136" width="106" height="34" rx="17" fill="#22c55e"/>
+    <text x="66" y="159" fill="#ffffff" font-family="Arial, sans-serif" font-size="14" font-weight="700">Leads</text>
+    <rect x="164" y="136" width="118" height="34" rx="17" fill="#ffffff"/>
+    <text x="188" y="159" fill="#003087" font-family="Arial, sans-serif" font-size="14" font-weight="700">Reports</text>
+  </g>
+  <g stroke="#003087" stroke-width="5" stroke-linecap="round" opacity=".42">
+    <path d="M438 306H260"/>
+    <path d="M762 306h178"/>
+    <path d="M438 386H260"/>
+    <path d="M762 386h178"/>
+    <path d="M522 238V198"/>
+    <path d="M678 238V198"/>
+    <path d="M522 452v64"/>
+    <path d="M678 452v64"/>
+  </g>
+  <g font-family="Arial, sans-serif">
+    <g transform="translate(104 224)">
+      <rect width="236" height="126" rx="24" fill="#eef6ff" stroke="#bfdbfe"/>
+      <text x="28" y="42" fill="#174ea6" font-size="20" font-weight="700">Website</text>
+      <text x="28" y="76" fill="#334155" font-size="16">Service pages, forms,</text>
+      <text x="28" y="100" fill="#334155" font-size="16">SEO and landing pages</text>
+    </g>
+    <g transform="translate(104 384)">
+      <rect width="236" height="126" rx="24" fill="#f0fdf4" stroke="#bbf7d0"/>
+      <text x="28" y="42" fill="#166534" font-size="20" font-weight="700">CRM &amp; Leads</text>
+      <text x="28" y="76" fill="#334155" font-size="16">Enquiries from forms,</text>
+      <text x="28" y="100" fill="#334155" font-size="16">WhatsApp and ads</text>
+    </g>
+    <g transform="translate(432 88)">
+      <rect width="156" height="110" rx="22" fill="#fff7ed" stroke="#fed7aa"/>
+      <text x="28" y="42" fill="#9a3412" font-size="19" font-weight="700">AI Chat</text>
+      <text x="28" y="76" fill="#334155" font-size="15">Auto answers</text>
+    </g>
+    <g transform="translate(612 88)">
+      <rect width="156" height="110" rx="22" fill="#f5f3ff" stroke="#ddd6fe"/>
+      <text x="28" y="42" fill="#6d28d9" font-size="19" font-weight="700">Automation</text>
+      <text x="28" y="76" fill="#334155" font-size="15">Tasks and alerts</text>
+    </g>
+    <g transform="translate(860 224)">
+      <rect width="236" height="126" rx="24" fill="#f8fafc" stroke="#dbe5f2"/>
+      <text x="28" y="42" fill="#003087" font-size="20" font-weight="700">Analytics</text>
+      <text x="28" y="76" fill="#334155" font-size="16">Search Console, GA4,</text>
+      <text x="28" y="100" fill="#334155" font-size="16">pixels and reporting</text>
+    </g>
+    <g transform="translate(860 384)">
+      <rect width="236" height="126" rx="24" fill="#ecfeff" stroke="#a5f3fc"/>
+      <text x="28" y="42" fill="#0e7490" font-size="20" font-weight="700">Customer Flow</text>
+      <text x="28" y="76" fill="#334155" font-size="16">Booking, payment,</text>
+      <text x="28" y="100" fill="#334155" font-size="16">reviews and support</text>
+    </g>
+    <g transform="translate(388 550)">
+      <rect width="196" height="98" rx="22" fill="#fff1f2" stroke="#fecdd3"/>
+      <text x="28" y="40" fill="#be123c" font-size="19" font-weight="700">WhatsApp</text>
+      <text x="28" y="70" fill="#334155" font-size="15">Follow-up messages</text>
+    </g>
+    <g transform="translate(616 550)">
+      <rect width="196" height="98" rx="22" fill="#eff6ff" stroke="#bfdbfe"/>
+      <text x="28" y="40" fill="#1d4ed8" font-size="19" font-weight="700">Payments</text>
+      <text x="28" y="70" fill="#334155" font-size="15">Invoices and checkout</text>
+    </g>
+  </g>
+  <rect x="104" y="660" width="992" height="32" rx="16" fill="#0f274a"/>
+  <text x="136" y="682" fill="#cfe3ff" font-family="Arial, sans-serif" font-size="15">Axon helps business owners connect the website to AI, marketing, operations and customer follow-up.</text>
+</svg>

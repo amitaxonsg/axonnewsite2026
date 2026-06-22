@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+  <title id="title">Digital transformation workflow</title>
+  <desc id="desc">A workflow connecting website, forms, CRM, invoices, support and AI assistant.</desc>
+  <rect width="1200" height="760" rx="34" fill="#f7fbff"/>
+  <rect x="62" y="62" width="1076" height="636" rx="30" fill="#ffffff" stroke="#dbe5f2"/>
+  <text x="96" y="116" fill="#0f172a" font-family="Arial, sans-serif" font-size="30" font-weight="700">Digital Transformation Map</text>
+  <text x="96" y="150" fill="#64748b" font-family="Arial, sans-serif" font-size="17">Connect daily work so fewer things are copied by hand.</text>
+  <g stroke="#003087" stroke-width="5" stroke-linecap="round" fill="none">
+    <path d="M236 282h150"/>
+    <path d="M526 282h150"/>
+    <path d="M816 282h132"/>
+    <path d="M526 424h150"/>
+    <path d="M236 424h150"/>
+    <path d="M816 424h132"/>
+    <path d="M600 340v46"/>
+  </g>
+  <g font-family="Arial, sans-serif">
+    <g transform="translate(98 226)">
+      <rect width="168" height="112" rx="22" fill="#eaf3ff" stroke="#bfd7ff"/>
+      <text x="26" y="46" fill="#003087" font-size="18" font-weight="700">Website</text>
+      <text x="26" y="76" fill="#334155" font-size="15">Enquiries</text>
+    </g>
+    <g transform="translate(386 226)">
+      <rect width="168" height="112" rx="22" fill="#f0fdf4" stroke="#bbf7d0"/>
+      <text x="26" y="46" fill="#166534" font-size="18" font-weight="700">Forms</text>
+      <text x="26" y="76" fill="#334155" font-size="15">Requests</text>
+    </g>
+    <g transform="translate(676 226)">
+      <rect width="168" height="112" rx="22" fill="#fff7ed" stroke="#fed7aa"/>
+      <text x="26" y="46" fill="#9a3412" font-size="18" font-weight="700">CRM</text>
+      <text x="26" y="76" fill="#334155" font-size="15">Follow-ups</text>
+    </g>
+    <g transform="translate(948 226)">
+      <rect width="150" height="112" rx="22" fill="#f5f3ff" stroke="#ddd6fe"/>
+      <text x="22" y="46" fill="#6d28d9" font-size="18" font-weight="700">Reports</text>
+      <text x="22" y="76" fill="#334155" font-size="15">Owners</text>
+    </g>
+    <g transform="translate(98 368)">
+      <rect width="168" height="112" rx="22" fill="#fff1f2" stroke="#fecdd3"/>
+      <text x="26" y="46" fill="#be123c" font-size="18" font-weight="700">Support</text>
+      <text x="26" y="76" fill="#334155" font-size="15">Tickets</text>
+    </g>
+    <g transform="translate(386 368)">
+      <rect width="168" height="112" rx="22" fill="#f8fafc" stroke="#cbd5e1"/>
+      <text x="26" y="46" fill="#0f172a" font-size="18" font-weight="700">Invoices</text>
+      <text x="26" y="76" fill="#334155" font-size="15">Payments</text>
+    </g>
+    <g transform="translate(676 368)">
+      <rect width="168" height="112" rx="22" fill="#ecfeff" stroke="#a5f3fc"/>
+      <text x="26" y="46" fill="#0e7490" font-size="18" font-weight="700">AI Helper</text>
+      <text x="26" y="76" fill="#334155" font-size="15">Answers</text>
+    </g>
+    <g transform="translate(948 368)">
+      <rect width="150" height="112" rx="22" fill="#fefce8" stroke="#fde68a"/>
+      <text x="22" y="46" fill="#a16207" font-size="18" font-weight="700">Staff</text>
+      <text x="22" y="76" fill="#334155" font-size="15">Tasks</text>
+    </g>
+  </g>
+  <g transform="translate(98 548)">
+    <rect width="1000" height="82" rx="20" fill="#0f274a"/>
+    <text x="34" y="34" fill="#ffffff" font-family="Arial, sans-serif" font-size="19" font-weight="700">Outcome</text>
+    <text x="34" y="60" fill="#cfe3ff" font-family="Arial, sans-serif" font-size="17">Less manual follow-up, clearer ownership, better customer response, and visible business data.</text>
+  </g>
+</svg>

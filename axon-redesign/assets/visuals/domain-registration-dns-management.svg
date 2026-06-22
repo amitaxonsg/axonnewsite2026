@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+  <title id="title">Domain registration and DNS management dashboard</title>
+  <desc id="desc">A dashboard showing domain ownership, DNS records, SSL and renewal reminders.</desc>
+  <rect width="1200" height="760" rx="34" fill="#f8fbff"/>
+  <rect x="56" y="56" width="1088" height="648" rx="30" fill="#ffffff" stroke="#dbe5f2"/>
+  <text x="94" y="118" fill="#0f172a" font-family="Arial, sans-serif" font-size="30" font-weight="700">Domain &amp; DNS Management</text>
+  <rect x="94" y="154" width="702" height="58" rx="18" fill="#f8fafc" stroke="#dbe5f2"/>
+  <text x="122" y="191" fill="#334155" font-family="Arial, sans-serif" font-size="19">yourcompany.com</text>
+  <rect x="816" y="154" width="246" height="58" rx="18" fill="#003087"/>
+  <text x="872" y="191" fill="#ffffff" font-family="Arial, sans-serif" font-size="18" font-weight="700">Renewal protected</text>
+  <g transform="translate(94 252)">
+    <rect width="488" height="330" rx="24" fill="#f8fafc" stroke="#dbe5f2"/>
+    <text x="28" y="44" fill="#003087" font-family="Arial, sans-serif" font-size="21" font-weight="700">DNS Records</text>
+    <g font-family="Arial, sans-serif" font-size="16" fill="#334155">
+      <text x="28" y="90">A</text><text x="106" y="90">website</text><text x="286" y="90">1ProIT hosting</text>
+      <text x="28" y="134">MX</text><text x="106" y="134">email</text><text x="286" y="134">Google / M365</text>
+      <text x="28" y="178">TXT</text><text x="106" y="178">SPF</text><text x="286" y="178">mail protection</text>
+      <text x="28" y="222">TXT</text><text x="106" y="222">DKIM</text><text x="286" y="222">anti-spoofing</text>
+      <text x="28" y="266">TXT</text><text x="106" y="266">DMARC</text><text x="286" y="266">reports</text>
+    </g>
+  </g>
+  <g transform="translate(628 252)">
+    <rect width="434" height="150" rx="24" fill="#eef6ff" stroke="#bfdbfe"/>
+    <text x="28" y="44" fill="#174ea6" font-family="Arial, sans-serif" font-size="21" font-weight="700">SSL and Ownership</text>
+    <text x="28" y="86" fill="#334155" font-family="Arial, sans-serif" font-size="17">Certificate active, registrar access recorded, admin email protected.</text>
+  </g>
+  <g transform="translate(628 432)">
+    <rect width="434" height="150" rx="24" fill="#f0fdf4" stroke="#bbf7d0"/>
+    <text x="28" y="44" fill="#166534" font-family="Arial, sans-serif" font-size="21" font-weight="700">Renewal Tracking</text>
+    <text x="28" y="86" fill="#334155" font-family="Arial, sans-serif" font-size="17">Domain, hosting and email renewals monitored before expiry.</text>
+  </g>
+</svg>
